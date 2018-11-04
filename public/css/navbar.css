@@ -1,0 +1,122 @@
+
+/*Általános header css*/
+header {
+    background:#35424a;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: white 3px solid;
+    color: white;
+    opacity: 0.93;
+    z-index: 100;
+}
+
+/*headeren belüli linkek*/
+header a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+/*headeren belüli linkek mikor ráviszem az egeeret*/
+header a:hover {
+    color: #eeeeee;
+}
+/*a menüpontok a headerben (az első 3 elem)*/
+header li:nth-child(-n+3) {
+    float:left;
+    display: inline;
+    padding: 0 20px 0 20px ;
+}
+/*a menüpontok a headerben (az utolsó 2 elem) - csak akkor fog*/
+header li:nth-last-child(-n+2) {
+    display: none;
+}
+/*ha a menüpontok felé viszem az egeret, akkor baldel és kicsit másabb fehérrel kiemeli (login-nál is)*/
+header li:hover {
+    color: #eeeeee;
+    font-weight: 500;
+    border: none;
+}
+/*logo (majd lehet lesz kép is)*/
+#branding {
+    float: left;
+}
+/*felirat (lehet nem kell majd)*/
+#branding h1 {
+    margin: 0;
+}
+/*jobb oldalon lévő navigációs sáv*/
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header .highlight, header .current a{
+    color: coral;
+    font-weight:bold;
+}
+
+#menu-icon {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background:  url(../img/menu-icon.png) center;
+}
+
+a:hover#menu-icon {
+    background-color: coral;
+    border-radius: 4px 4px 0 0;
+}
+
+
+.dropdownbuttton {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+}
+
+.dropdown {
+    float: right;
+    position: absolute;
+    display: inline-block;
+    right: 30px;
+    top: 7px;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none;
+    background-color: #f1f1f1;
+    min-width: 130px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 3px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: coral;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropdownbuttton {
+    background-color: rgba(0,0,0,0.5);
+}
