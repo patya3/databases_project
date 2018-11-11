@@ -1,7 +1,8 @@
 <?php
 
 Route::set('index.php', function () {
-    //Index::CreateView('Index');
+    $index = new Index();
+    $index->view->render("Index");
 });
 
 Route::set('login', function () {
