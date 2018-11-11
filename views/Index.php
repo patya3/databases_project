@@ -8,22 +8,21 @@
 </section>
 <section id="boxes">
     <div class="container">
-    <?php print_r($this->data)?>
-        <div class="box">
-            <a href="comedy.php"><img src="./img/tv2_logo.png" alt="szorakoztato"></a>
-            <a href="comedy.php"><h3>Szórakoztató csatornák</h3></a>
-            <p>RTL Klub, TV2, Comedy Central, Film+, Viasat3</p>
-        </div>
-        <div class="box">
-            <a href="nature.php"><img src="img/download.png" alt="ismeret_terjeszto"></a>
-            <a href="nature.php"><h3>Ismeretterjesztő csatornák</h3></a>
-            <p>Animal Planet, Discovery Channel, National Geographic, History Channel, Spektrum</p>
-        </div>
-        <div class="box">
-            <a href="sport.php"><img src="./img/sport1_logo.jpg" alt="sport"></a>
-            <a href="sport.php"><h3>Sport csatornák</h3></a>
-            <p>Sport 1, Sport 2, Eurosport HD, Digi Sport 1, M4 sport</p>
-        </div>
+        <?php foreach ($this->data as $key => $cat):
+            $content = '<div class="box">';
+                $content .= '<a href="category/'.$cat["page"].'-'.$cat["id"].'"><img src="'.$cat["logo"].'" alt="'.$key.'"></a>';
+                $content .= '<a href="category/'.$cat["page"].'-'.$cat["id"].'"><h3>'.$key.'</h3></a>';
+                $content .= '<p>';
+                if (!empty($cat["channels"])) {
+                    for ($i = 0; $i < count($cat["channels"]); $i++) {
+                        $delimiter = $i == count($cat["channels"])-1 ? "" : ", ";
+                        $content .= $cat["channels"][$i]["channel_name"].$delimiter;
+                    }
+                }
+                $content .= '</p>';
+            $content .='</div>';
+            echo $content;
+        endforeach;?>
     </div>
 </section>
 <section id="favourites">

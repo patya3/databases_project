@@ -36,6 +36,7 @@ Route::set('logout', function () {
    $user->logout();
 });
 
-Route::set('contact-us', function () {
-    ContactUs::CreateView('ContactUs');
+Route::set('category', function () {
+    $category = new Category($_SERVER["REQUEST_URI"]);
+    $category->view->render("Category");
 });

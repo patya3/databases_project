@@ -41,7 +41,10 @@ class Database {
 
         if (explode(' ',$query)[0] == 'SELECT') {
             $result = $statement->get_result();
-            $data = $result->fetch_assoc();
+            $data = array();
+            while ($row  = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
 
             $result->close();
             $statement->close();
