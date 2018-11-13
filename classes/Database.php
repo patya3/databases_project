@@ -7,7 +7,7 @@ class Database {
     public static $username = "root";
     public static $password = "";
 
-    private static $con;
+    public static $con;
 
     public function __construct() {
         if (self::$con == null)
