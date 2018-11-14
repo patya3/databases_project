@@ -394,3 +394,21 @@ footer {
     border-radius: .25rem;
     width: 60%;
 }
+
+.grey-bg {
+    background-color: #35424a;
+    margin-bottom: 20px;
+}
+.grey-bg img {
+    width: 220px;
+    height: 220px;
+}
+.description {
+    text-align: justify;
+    padding-left: 220px;
+    float: left;
+    color: antiquewhite;
+}
+.description span {
+    color: coral;
+}

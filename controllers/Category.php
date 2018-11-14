@@ -15,20 +15,27 @@ class Category extends Controller {
         $id = $arr2[max(array_keys($arr2))];
 
         //view array
-        $data = array();
+        $show_data = array();
+        $cats_data = array();
 
-        $channels = self::stmt_query("SELECT id, channel_name, channel_logo FROM channels WHERE channel_category_id = ?","i",array($id));
-        $i = 0;
+        $channels = self::stmt_query("SELECT id, channel_name, channel_logo, short_description FROM channels WHERE channel_category_id = ?","i",array($id));
         foreach ($channels as $c) {
-            $data[$i]["name"] = $c["channel_name"];
-            $data[$i]["logo"] = $c["channel_logo"];
-            $data[$i]["shows"] = self::stmt_query("SELECT show_name, date FROM shows WHERE channel_id = ?","i",array($c["id"]));
-            $i++;
+            $show_data[$c["id"]]["name"] = $c["channel_name"];
+            $show_data[$c["id"]]["logo"] = $c["channel_logo"];
+            $show_data[$c["id"]]["shows"] = self::stmt_query("SELECT show_name, start_date FROM shows WHERE channel_id = ?","i",array($c["id"]));
+
+            $cats_sql = "SELECT show_category_name ";
+            $cats_sql .= "FROM show_categories ";
+            $cats_sql .= "LEFT JOIN shows ON show_categories.id = shows.show_category_id ";
+            $cats_sql .= "LEFT JOIN channels ON shows.channel_id = channels.id ";
+            $cats_sql .= "WHERE shows.channel_id = ".$c["id"]." ";
+            $cats_sql .= "GROUP BY show_category_name ";
+            $cats_sql .= "LIMIT 5";
+            $cats_data[$c["id"]] = self::query($cats_sql);
         }
-        $this->view->data = $data;
-    }
 
-    public function add_to_favourites() {
-
+        $this->view->shows = $show_data;
+        $this->view->channels = $channels;
+        $this->view->cats = $cats_data;
     }
 }

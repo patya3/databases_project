@@ -11,14 +11,17 @@ function header_code($current = "")
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Műsorújság</title>
-    <link rel="stylesheet" type="text/css" href="public/css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="public/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="public/css/style.css">
-    <link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/navbar.css")?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/font-awesome.css")?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/style.css")?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/responsive.css")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="public/js/notify.min.js"></script>
-    <script type="text/javascript" src="public/js/ajax.js"></script>
-    <?php if ($current == "login" || $current == "register") echo "<link rel='stylesheet' type='text/css' href='public/css/login.css'>" ?>
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <script src="<?php echo public_url("/public/js/notify.min.js")?>"></script>
+    <script type="text/javascript" src="<?php echo public_url("/public/js/ajax.js")?>"></script>
+    <?php if ($current == "login" || $current == "register") echo "<link rel='stylesheet' type='text/css' href='".public_url("/public/css/login.css")."'>" ?>
 
 </head>
 <body>
@@ -67,4 +70,8 @@ function footer_code() {
     </body>
     </html>
     <?php
+}
+
+function public_url($url = "") {
+    return "/".basename(__DIR__).$url;
 }

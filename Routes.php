@@ -40,3 +40,10 @@ Route::set('category', function () {
     $category = new Category($_SERVER["REQUEST_URI"]);
     $category->view->render("Category");
 });
+
+Route::set('add-to-fav', function () {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $favourites = new Favourites();
+        $favourites->add_to_favourites();
+    }
+});
