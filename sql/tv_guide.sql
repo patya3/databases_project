@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2018. Nov 13. 22:21
+-- Létrehozás ideje: 2018. Nov 15. 21:52
 -- Kiszolgáló verziója: 10.1.34-MariaDB
 -- PHP verzió: 7.2.7
 
@@ -33,29 +33,30 @@ CREATE TABLE `channels` (
   `channel_name` varchar(150) COLLATE utf8_hungarian_ci NOT NULL,
   `channel_category_id` int(11) NOT NULL,
   `channel_logo` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
-  `channel_id` varchar(100) COLLATE utf8_hungarian_ci NOT NULL
+  `channel_id` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
+  `short_description` text COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `channels`
 --
 
-INSERT INTO `channels` (`id`, `channel_name`, `channel_category_id`, `channel_logo`, `channel_id`) VALUES
-(1, 'Animal Planet', 2, 'https://media.port.hu/images/001/059/100x100/452.jpg', 'ANIMAL'),
-(2, 'Comedy Central', 1, 'https://media.port.hu/images/001/059/100x100/336.jpg', 'COMEDY'),
-(3, 'DIGI Sport 1', 3, 'https://media.port.hu/images/001/059/100x100/342.jpg', 'DIGISPORT1'),
-(4, 'Discovery Channel', 2, 'https://media.port.hu/images/001/059/100x100/454.jpg', 'DISCOVERY'),
-(5, 'Eurosport 1', 3, 'https://media.port.hu/images/001/059/100x100/468.jpg', 'EUROSPORT'),
-(6, 'Film+', 1, 'https://media.port.hu/images/001/059/100x100/412.jpg', 'FILMPLUS'),
-(7, 'HISTORY', 2, 'https://media.port.hu/images/001/059/100x100/520.jpg', 'HISTORY'),
-(8, 'M4 Sport', 3, 'https://media.port.hu/images/001/059/100x100/400.jpg', 'M4_SPORT'),
-(9, 'National Geographic', 2, 'https://media.port.hu/images/001/059/100x100/490.jpg', 'NATGEO'),
-(10, 'RTL Klub', 1, 'https://media.port.hu/images/001/059/100x100/480.jpg', 'RTL'),
-(11, 'Spektrum', 2, 'https://media.port.hu/images/001/059/100x100/462.jpg', 'SPEKTRUM'),
-(12, 'Sport1', 3, 'https://media.port.hu/images/001/059/100x100/464.jpg', 'SPORT1'),
-(13, 'Sport2', 3, 'https://media.port.hu/images/001/059/100x100/428.jpg', 'SPORT2'),
-(14, 'TV2', 1, 'https://media.port.hu/images/001/059/100x100/404.jpg', 'TV2'),
-(15, 'VIASAT3', 1, 'https://media.port.hu/images/001/059/100x100/340.jpg', 'VIASAT3');
+INSERT INTO `channels` (`id`, `channel_name`, `channel_category_id`, `channel_logo`, `channel_id`, `short_description`) VALUES
+(1, 'Animal Planet', 2, 'https://media.port.hu/images/001/059/100x100/452.jpg', 'ANIMAL', ''),
+(2, 'Comedy Central', 1, '/public/img/comedy_central_logo.png', 'COMEDY', 'comedy central vagyok'),
+(3, 'DIGI Sport 1', 3, 'https://media.port.hu/images/001/059/100x100/342.jpg', 'DIGISPORT1', ''),
+(4, 'Discovery Channel', 2, 'https://media.port.hu/images/001/059/100x100/454.jpg', 'DISCOVERY', ''),
+(5, 'Eurosport 1', 3, 'https://media.port.hu/images/001/059/100x100/468.jpg', 'EUROSPORT', ''),
+(6, 'Film+', 1, '/public/img/film_plus_logo.jpg', 'FILMPLUS', 'filmplus vagyok'),
+(7, 'HISTORY', 2, 'https://media.port.hu/images/001/059/100x100/520.jpg', 'HISTORY', ''),
+(8, 'M4 Sport', 3, 'https://media.port.hu/images/001/059/100x100/400.jpg', 'M4_SPORT', ''),
+(9, 'National Geographic', 2, 'https://media.port.hu/images/001/059/100x100/490.jpg', 'NATGEO', ''),
+(10, 'RTL Klub', 1, '/public/img/rtl_logo.png', 'RTL', 'rtl klub vagyok'),
+(11, 'Spektrum', 2, 'https://media.port.hu/images/001/059/100x100/462.jpg', 'SPEKTRUM', ''),
+(12, 'Sport1', 3, 'https://media.port.hu/images/001/059/100x100/464.jpg', 'SPORT1', ''),
+(13, 'Sport2', 3, 'https://media.port.hu/images/001/059/100x100/428.jpg', 'SPORT2', ''),
+(14, 'TV2', 1, '/public/img/tv2_logo.png', 'TV2', 'tv2 vagyok'),
+(15, 'VIASAT3', 1, '/public/img/viasat3_logo.jpg', 'VIASAT3', 'viasat 3 vagyok');
 
 -- --------------------------------------------------------
 
@@ -1538,6 +1539,17 @@ CREATE TABLE `users_favourites` (
   `user_id` int(11) NOT NULL,
   `channel_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `users_favourites`
+--
+
+INSERT INTO `users_favourites` (`user_id`, `channel_id`) VALUES
+(1, 14),
+(1, 15),
+(1, 10),
+(1, 6),
+(1, 2);
 
 --
 -- Indexek a kiírt táblákhoz

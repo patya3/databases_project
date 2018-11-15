@@ -405,10 +405,31 @@ footer {
 }
 .description {
     text-align: justify;
-    padding-left: 220px;
     float: left;
     color: antiquewhite;
+    display: contents;
+}
+.description p {
+    padding-right: 10px;
 }
 .description span {
     color: coral;
+}
+.jquery-modal {
+    z-index: 101;
+}
+.modal {
+    max-width: 100%;
+}
+.modal table {
+    width: 100%;
+}
+.modal table tr {
+    text-align: center;
+}
+.modal table th {
+    font-size: 20px;
+}
+.modal h1 {
+    text-align: center;
 }

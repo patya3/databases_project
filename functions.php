@@ -13,12 +13,12 @@ function header_code($current = "")
     <title>Műsorújság</title>
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/navbar.css")?>">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/font-awesome.css")?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/style.css")?>">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/responsive.css")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- jQuery Modal -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script src="<?php echo public_url("/public/js/notify.min.js")?>"></script>
     <script type="text/javascript" src="<?php echo public_url("/public/js/ajax.js")?>"></script>
     <?php if ($current == "login" || $current == "register") echo "<link rel='stylesheet' type='text/css' href='".public_url("/public/css/login.css")."'>" ?>
