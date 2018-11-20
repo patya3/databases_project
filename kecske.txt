@@ -1,3 +1,5 @@
 Array
 (
+    [0] => A név nem lehet üres és legalább 3 karakternek kell lennie.
+    [1] => A kezdés ideje és a befejezés ideje nem lehet egyenlő
 )

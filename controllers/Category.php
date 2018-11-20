@@ -22,7 +22,7 @@ class Category extends Controller {
         foreach ($channels as $c) {
             $show_data[$c["id"]]["name"] = $c["channel_name"];
             $show_data[$c["id"]]["logo"] = $c["channel_logo"];
-            $show_data[$c["id"]]["shows"] = self::stmt_query("SELECT id, show_name, start_date FROM shows WHERE channel_id = ?","i",array($c["id"]));
+            $show_data[$c["id"]]["shows"] = self::query("SELECT shows.id, show_name, show_category_name, start_date, end_date FROM shows LEFT JOIN show_categories ON show_categories.id = shows.show_category_id WHERE channel_id = '".$c["id"]."'");
 
             $cats_sql = "SELECT show_category_name ";
             $cats_sql .= "FROM show_categories ";

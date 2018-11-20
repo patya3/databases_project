@@ -47,3 +47,20 @@ Route::set('add-to-fav', function () {
         $favourites->add_to_favourites();
     }
 });
+
+Route::set('admin', function () {
+    //check if user have permission to reach admin page
+    //TODO
+    $admin = new Admin();
+    if (isset($_POST["add_show"])) {
+        $admin->add_show();
+    }
+    if (isset($_POST["delete_show"])) {
+        $admin->delete_show();
+    }
+    if (isset($_POST["update_show"])) {
+        $admin->update_show();
+    }
+    $admin->view->render("Admin");
+
+});

@@ -1,4 +1,9 @@
-<?php foreach ($this->shows as $key => $channel): ?>
+
+<?php
+$modal_ready = "";
+$modal_name = "";
+$modal_start_date = "";
+foreach ($this->shows as $key => $channel): ?>
     <div id="ex<?php echo $key; ?>" class="modal">
         <h1><?php echo $channel["name"]; ?> műsorlista</h1>
         <p>
@@ -12,21 +17,36 @@
             </tr>
             <?php
             $monday = [];$tuesday = [];$wednesday = [];$thursday = [];$friday = [];/*$saturday = [];$sunday = [];*/
+            $k = 0;
             foreach ($channel["shows"] as $show) {
                 $timestamp = strtotime($show["start_date"]);
                 $show_day = date('l', $timestamp);
                 $show_time = date("H:i", $timestamp);
                 if ($show_day == "Monday") {
-                    $monday[] = $show_time . " " . $show["show_name"];
+                    $monday[] = array(
+                        "string" => $show_time . " " . $show["show_name"],
+                        "data" => $monday["data"] = $show
+                    );
                 } elseif ($show_day == "Tuesday") {
-                    $tuesday[] = $show_time . " " . $show["show_name"];
+                    $tuesday[] = array(
+                        "string" => $show_time . " " . $show["show_name"],
+                        "data" => $tuesday["data"] = $show
+                    );
                 } elseif ($show_day == "Wednesday") {
-                    $wednesday[] = $show_time . " " . $show["show_name"];
+                    $wednesday[] = array(
+                        "string" => $show_time . " " . $show["show_name"],
+                        "data" => $wednesday["data"] = $show
+                    );
                 } elseif ($show_day == "Thursday") {
-                    $thursday[] = $show_time . " " . $show["show_name"];
+                    $thursday[] = array(
+                        "string" => $show_time . " " . $show["show_name"],
+                        "data" => $thursday["data"] = $show
+                    );
                 } elseif ($show_day == "Friday") {
-                    $friday[] = $show_time . " " . $show["show_name"];
-                    echo $show["show_name"];
+                    $friday[] = array(
+                        "string" => $show_time . " " . $show["show_name"],
+                        "data" => $friday["data"] = $show
+                    );
                 } /*elseif ($show_day == "Saturday") {
                     $saturday[] = $show_time . " " . $show["show_name"];
                 } elseif ($show_day == "Sunday") {
@@ -37,15 +57,30 @@
             $string = "";
             for ($i = 0; $i < $length; $i++) {
                 $string .= "<tr>";
-                if (array_key_exists($i, $monday)) $string .= "<td>" . $monday[$i] . "</td>";
+                if (array_key_exists($i, $monday)) {
+                    $data = $monday[$i]["data"];
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $monday[$i]["string"] . "</a></td>";
+                }
                 else $string .= "<td></td>";
-                if (array_key_exists($i, $tuesday)) $string .= "<td>" . $tuesday[$i] . "</td>";
+                if (array_key_exists($i, $tuesday)) {
+                    $data = $tuesday[$i]["data"];
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $tuesday[$i]["string"] . "</a></td>";
+                }
                 else $string .= "<td></td>";
-                if (array_key_exists($i, $wednesday)) $string .= "<td>" . $wednesday[$i] . "</td>";
+                if (array_key_exists($i, $wednesday)) {
+                    $data = $wednesday[$i]["data"];
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $wednesday[$i]["string"] . "</a></td>";
+                }
                 else $string .= "<td></td>";
-                if (array_key_exists($i, $thursday)) $string .= "<td>" . $thursday[$i] . "</td>";
+                if (array_key_exists($i, $thursday)) {
+                    $data = $thursday[$i]["data"];
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $thursday[$i]["string"] . "</a></td>";
+                }
                 else $string .= "<td></td>";
-                if (array_key_exists($i, $friday)) $string .= "<td>" . $friday[$i] . "</td>";
+                if (array_key_exists($i, $friday)) {
+                    $data = $friday[$i]["data"];
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $friday[$i]["string"] . "</a></td>";
+                }
                 else $string .= "<td></td>";
                 /*if (array_key_exists($i, $saturday)) $string .= "<td>" . $saturday[$i] . "</td>";
                 else $string .= "<td></td>";
@@ -60,7 +95,10 @@
         <a href="#" rel="modal:close">Bezárás</a>
     </div>
 <?php endforeach; ?>
+<div id="m1" class="modal">
 
+    <a href="#" rel="modal:close">Close</a>
+</div>
 
 <a id="top"></a>
 <section><!--class="nature"-->
@@ -139,3 +177,22 @@
         </div>
     </div>
 <?php endforeach; ?>
+<script>
+    $('a[href="#m1"]').click(function(event) {
+        event.preventDefault();
+        $(this).modal({
+            closeExisting: false
+        });
+        console.log($(this).parent().data("name"));
+        $("#m1").css("width","unset");
+        $("#m1").html("");
+        $("#m1").prepend(
+            "<p>Csatorna neve: "+$(this).parent().data("channel")+"</p>" +
+            "<p>Műsor neve: "+$(this).parent().data("name")+"</p>" +
+            "<p>Műsor kezdete: "+$(this).parent().data("start-date")+"</p>" +
+            "<p>Műsor vége: "+$(this).parent().data("end-date")+"</p>" +
+            "<p>Kategoria: "+$(this).parent().data("category")+
+            "<p>Szereplők: </p>"
+        );
+    });
+</script>

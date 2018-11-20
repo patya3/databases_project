@@ -14,6 +14,7 @@ function header_code($current = "")
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/navbar.css")?>">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/font-awesome.css")?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/login.css")?>">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/style.css")?>">
     <link rel="stylesheet" type="text/css" href="<?php echo public_url("/public/css/responsive.css")?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -66,7 +67,6 @@ function footer_code() {
     <footer>
         <p>Patya Web Development, Copyright &copy; 2018</p>
     </footer>
-
     </body>
     </html>
     <?php

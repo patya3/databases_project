@@ -16,7 +16,13 @@ class User extends Controller {
 
             foreach ($users as $user) {
                 if ($user["username"] == $username && $user["password"] == $password) {
-                    $_SESSION["user"] = $user;
+                    $_SESSION["user"] = array(
+                        "username" => $user["username"],
+                        "id" => $user["id"],
+                        "profile_picture" => $user["profile_picture"],
+                        "full_name" => $user["full_name"],
+                        "register_date" => $user["register_date"]
+                    );
                     $message = "Sikeres bejelentkezés!";
                     break;
                 }
