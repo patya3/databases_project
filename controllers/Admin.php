@@ -15,6 +15,7 @@ class Admin extends Controller {
         $this->channels = $this->view->channels = self::query("SELECT id, channel_name FROM channels");
         $this->shows = $this->view->shows = self::query("SELECT * FROM shows");
         $this->show_categories = $this->view->show_categories = self::query("SELECT * FROM show_categories");
+        $this->actors = $this->view->actors = self::query("SELECT * FROM actors");
     }
 
     public function delete_show() {
@@ -28,6 +29,7 @@ class Admin extends Controller {
     public function update_show() {
         if (isset($_POST["update_show"])) {
             $errors = array();
+            $actor_ids = "";
             if (!isset($_POST["id"])) {
                 $errors[] = "Nem lett műsor kiválasztva.";
             }
@@ -46,10 +48,16 @@ class Admin extends Controller {
             if ($_POST["start_date"] == $_POST["end_date"]) {
                 $errors[] = "A kezdés ideje és a befejezés ideje nem lehet egyenlő.";
             }
+            if (isset($_POST["actor_ids"])) {
+                for ($i = 0; $i < count($_POST["actor_ids"]); $i++) {
+                    $join = ($i != count($_POST["actor_ids"])- 1) ? "," : "";
+                    $actor_ids .= $_POST["actor_ids"][$i].$join;
+                }
+            }
 
             if (count($errors) == 0) {
-                self::stmt_query("UPDATE shows SET show_name = ?, channel_id = ?, show_category_id = ?, start_date = STR_TO_DATE(?,'%Y-%m-%dT%H:%i'), end_date = STR_TO_DATE(?,'%Y-%m-%dT%H:%i') WHERE id = ?",
-                    "siissi",array($_POST["show_name"], $_POST["channel_id"], $_POST["show_category_id"], $_POST["start_date"], $_POST["end_date"], $_POST["id"])
+                self::stmt_query("UPDATE shows SET show_name = ?, channel_id = ?, show_category_id = ?, start_date = STR_TO_DATE(?,'%Y-%m-%dT%H:%i'), end_date = STR_TO_DATE(?,'%Y-%m-%dT%H:%i'), actor_ids = ? WHERE id = ?",
+                    "siisssi",array($_POST["show_name"], $_POST["channel_id"], $_POST["show_category_id"], $_POST["start_date"], $_POST["end_date"], $actor_ids, $_POST["id"])
                 );
                 $this->view->update_message = "Sikeres módosítás";
             } else {
@@ -62,6 +70,7 @@ class Admin extends Controller {
     public function add_show() {
         if (isset($_POST["add_show"])) {
             $errors = array();
+            $actor_ids = "";
             if (!isset($_POST["channel_id"])) {
                 $errors[] = "Nem lett csatorna kiválasztva.";
             }
@@ -77,6 +86,12 @@ class Admin extends Controller {
             if ($_POST["start_date"] == $_POST["end_date"]) {
                 $errors[] = "A kezdés ideje és a befejezés ideje nem lehet egyenlő.";
             }
+            if (isset($_POST["actor_ids"])) {
+                for ($i = 0; $i < count($_POST["actor_ids"]); $i++) {
+                    $join = ($i != count($_POST["actor_ids"])- 1) ? "," : "";
+                    $actor_ids .= $_POST["actor_ids"][$i].$join;
+                }
+            }
 
             foreach ($this->shows as $show) {
                 if ($show["show_name"] == $_POST["show_name"] && $show["channel_id"] == $_POST["channel_id"] &&
@@ -87,8 +102,8 @@ class Admin extends Controller {
             }
 
             if (count($errors) == 0) {
-                self::stmt_query("INSERT INTO shows (show_name, channel_id, show_category_id, start_date, end_date) VALUES (?,?,?,STR_TO_DATE(?,'%Y-%m-%dT%H:%i'),STR_TO_DATE(?,'%Y-%m-%dT%H:%i'))",
-                    "siiss",array($_POST["show_name"], $_POST["channel_id"], $_POST["show_category_id"], $_POST["start_date"], $_POST["end_date"])
+                self::stmt_query("INSERT INTO shows (show_name, channel_id, show_category_id, start_date, end_date, actor_ids) VALUES (?,?,?,STR_TO_DATE(?,'%Y-%m-%dT%H:%i'),STR_TO_DATE(?,'%Y-%m-%dT%H:%i'),?)",
+                    "siisss",array($_POST["show_name"], $_POST["channel_id"], $_POST["show_category_id"], $_POST["start_date"], $_POST["end_date"], $actor_ids)
                 );
                 $this->view->add_message = "Sikeres hozzáadás!";
             } else {

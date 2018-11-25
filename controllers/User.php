@@ -1,17 +1,20 @@
 <?php
 
-class User extends Controller {
+class User extends Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function login () {
+    public function login()
+    {
 
         if (isset($_POST["login_submit"])) {
             $users = self::query("SELECT * FROM users");
             $username = $_POST["username"];
-            $password = $_POST["password"];
+            $password = sha1($_POST["password"]);
             $message = "Hibás felhasználónév vagy jelszó";
 
             foreach ($users as $user) {
@@ -19,6 +22,7 @@ class User extends Controller {
                     $_SESSION["user"] = array(
                         "username" => $user["username"],
                         "id" => $user["id"],
+                        "email" => $user["email"],
                         "profile_picture" => $user["profile_picture"],
                         "full_name" => $user["full_name"],
                         "register_date" => $user["register_date"]
@@ -31,15 +35,17 @@ class User extends Controller {
         $this->view->message = $message;
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_unset();
-        if(session_destroy()) {
+        if (session_destroy()) {
             echo true;
         }
         echo false;
     }
 
-    public function register () {
+    public function register()
+    {
         if (isset($_POST['register_submit'])) {
             $errors = [];
             $message = "";
@@ -51,6 +57,7 @@ class User extends Controller {
             $email = $_POST["email"];
             $favorites = "";
             $register_date = date("Y-m-d");
+            file_put_contents("kecske.txt", print_r($register_date, true));
             foreach ($users as $user) {
                 if ($user["username"] == $username) {
                     $errors[] = "Foglalt felhasználónév.";
@@ -82,7 +89,7 @@ class User extends Controller {
             $pic = "";
             if (isset($_FILES["pic"]) && $_FILES["pic"]["tmp_name"] != "") {
 
-                if($_FILES["pic"]["size"] > 2097152) {
+                if ($_FILES["pic"]["size"] > 2097152) {
                     $errors[] = "Maximum 2MB-os képet tölthetsz fel.";
                 }
 
@@ -93,7 +100,7 @@ class User extends Controller {
                     $errors[] = "Csak jpg vagy png kiterjesztés engedélyezett.";
                 }
                 $hash = md5_file($_FILES["pic"]["tmp_name"]);
-                $pic = "../public/img/profile_images/".$hash;
+                $pic = "./public/img/profile_images/" . $hash;
             }
             $this->view->errors = $errors;
 
@@ -102,9 +109,11 @@ class User extends Controller {
                 $message = "Sikeres regisztráció!";
 
                 if ($pic != "") {
+                    file_put_contents("kecske.txt", print_r($_FILES["pic"]["tmp_name"], true));
                     move_uploaded_file($_FILES["pic"]["tmp_name"], $pic);
+
                 }
-                self::stmt_query("INSERT INTO users (username, password, email, full_name, profile_picture, register_date) VALUES (?,?,?,?,?,?);","sssssd", array($username, $password1, $email, $full_name, $pic, $register_date));
+                self::stmt_query("INSERT INTO users (username, password, email, full_name, profile_picture, register_date) VALUES (?,?,?,?,?,?);", "ssssss", array($username, sha1($password1), $email, $full_name, $pic, $register_date));
                 $this->redirect('login');
             }
         }

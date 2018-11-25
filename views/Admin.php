@@ -19,7 +19,7 @@
                 <select name="id" id="select_show">
                     <?php
                     foreach ($this->shows as $show) {
-                        echo "<option data-show-name='".$show["show_name"]."' data-channel-id='".$show["channel_id"]."' data-show-category-id='".$show["show_category_id"]."' data-start-date='".$show["start_date"]."' data-end-date='".$show["end_date"]."' value='" . $show["id"] . "'>" .$show["start_date"]." ".$show["show_name"] . "</option>";
+                        echo "<option data-show-name='".$show["show_name"]."' data-channel-id='".$show["channel_id"]."' data-show-category-id='".$show["show_category_id"]."' data-start-date='".$show["start_date"]."' data-end-date='".$show["end_date"]."' value='" . $show["id"] . "' data-actors='".$show["actor_ids"]."'>" .$show["start_date"]." ".$show["show_name"] . "</option>";
                     }
                     ?>
                 </select>
@@ -41,6 +41,16 @@
                     <?php
                     foreach ($this->show_categories as $category) {
                         echo "<option value='" . $category["id"] . "'>" . $category["show_category_name"] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="row-input">
+                <label for="select_actor_ids">Szereplők</label><br>
+                <select class="row-input" name="actor_ids[]" id="select_actor_ids" multiple style="height: 200px">
+                    <?php
+                    foreach ($this->actors as $actor) {
+                        echo "<option value='" . $actor["id"] . "'>" . $actor["actor_name"] . "</option>";
                     }
                     ?>
                 </select>
@@ -94,6 +104,16 @@
                 </select>
             </div>
             <div class="row-input">
+                <label for="actor_ids">Műsor kategória</label><br>
+                <select class="row-input" name="actor_ids[]" id="actor_ids" multiple style="height: 200px">
+                    <?php
+                    foreach ($this->actors as $actor) {
+                        echo "<option value='" . $actor["id"] . "'>" . $actor["actor_name"] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="row-input">
                 <label for="start_date">Kezdés időpontja</label><br>
                 <input type="datetime-local" name="start_date" id="start_date">
             </div>
@@ -134,6 +154,10 @@
         $("#modify_start_date").val(startDate);
         $("#modify_end_date").val(endDate);
         $("#modify_show_name").val($(this).find(":selected").data("show-name"));
-
+        var actor_ids = $(this).find(":selected").data("actors");
+        $.each(actor_ids.split(","), function (i,e) {
+           $("#select_actor_ids option[value='"+e+"']").prop("selected", true);
+        });
+        console.log($("#select_actor_ids"));
     });
 </script>

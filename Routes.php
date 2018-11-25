@@ -2,6 +2,11 @@
 
 Route::set('index.php', function () {
     $index = new Index();
+
+    if (isset($_SESSION["user"])) {
+        $index->display_favourites();
+    }
+
     $index->view->render("Index");
 });
 
@@ -43,24 +48,38 @@ Route::set('category', function () {
 
 Route::set('add-to-fav', function () {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $favourites = new Favourites();
-        $favourites->add_to_favourites();
+        $favorites = new Favorites();
+        $favorites->add_to_favourites();
     }
+});
+
+Route::set('favorites', function () {
+   $favorites = new Favorites();
+   if (isset($_SESSION["user"])) {
+       $favorites->display_favorites();
+       $favorites->view->render("Favorites");
+   } else {
+       header("Location: ".public_url());
+   }
+
 });
 
 Route::set('admin', function () {
     //check if user have permission to reach admin page
-    //TODO
     $admin = new Admin();
-    if (isset($_POST["add_show"])) {
-        $admin->add_show();
-    }
-    if (isset($_POST["delete_show"])) {
-        $admin->delete_show();
-    }
-    if (isset($_POST["update_show"])) {
-        $admin->update_show();
-    }
-    $admin->view->render("Admin");
 
+    if (isset($_SESSION["user"]) && $_SESSION["user"]["id"] == 1) {
+        if (isset($_POST["add_show"])) {
+            $admin->add_show();
+        }
+        if (isset($_POST["delete_show"])) {
+            $admin->delete_show();
+        }
+        if (isset($_POST["update_show"])) {
+            $admin->update_show();
+        }
+        $admin->view->render("Admin");
+    } else {
+        header("Location: ".public_url());
+    }
 });

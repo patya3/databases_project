@@ -117,22 +117,6 @@ a:hover {
     width: 100%;
 }
 
-.pic1 {background: url('../img/animal_planet.jpg') no-repeat -50px -250px; float: left; width: 95%; height: 600px;}
-.pic2 {background: url('../img/discovery_channel.jpg') no-repeat 0 -250px; float: right; width: 95%; height: 600px;}
-.pic3 {background: url('../img/natgeo.jpg') no-repeat -60px -420px; float: left; width: 95%; height: 600px;}
-.pic4 {background: url('../img/history.jpg') no-repeat 0 -210px; float: right; width: 95%; height: 600px;}
-.pic5 {background: url('../img/rtl_klub.jpg') no-repeat 0 -230px; width: 95%; float: left;  height: 600px;}
-.pic6 {background: url('../img/tv2.jpg') no-repeat -110px -100px; width: 95%; float: right;  height: 600px;}
-.pic7 {background: url('../img/film_plus.jpg') no-repeat 0 -288px; float: left; width: 95%; height: 600px;}
-.pic8 {background: url('../img/comedy_central.png') no-repeat 0 -250px; width: 95%; float: right;  height: 600px;}
-.pic9 {background: url('../img/viasat3.jpg') no-repeat 0 -200px; width: 95%; float: left;  height: 600px;}
-.pic10 {background: url('../img/spektrum.jpg') no-repeat 0 -400px; width: 95%; float: left;  height: 600px;}
-.pic11 {background: url('../img/sport1.jpg') no-repeat 0 -50px; width: 95%; float: left;  height: 600px;}
-.pic12 {background: url('../img/eurosport.jpg') no-repeat -400px -250px; width: 95%; float: right;  height: 600px;}
-.pic13 {background: url('../img/digisport1.jpg') no-repeat 0 -120px; width: 95%; float: left;  height: 600px;}
-.pic14 {background: url('../img/sport2.jpg') no-repeat 0 -300px; width: 95%; float: right;  height: 600px;}
-.pic15 {background: url('../img/m4sport.jpg') no-repeat 0 -120px; width: 95%; float: left;  height: 600px;}
-
 .left-table-div {
     float: left;
     width: 5%;

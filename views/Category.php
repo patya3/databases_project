@@ -59,27 +59,27 @@ foreach ($this->shows as $key => $channel): ?>
                 $string .= "<tr>";
                 if (array_key_exists($i, $monday)) {
                     $data = $monday[$i]["data"];
-                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $monday[$i]["string"] . "</a></td>";
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."' data-actors='".$data["actor_ids"]."'><a href=\"#m1\" rel=\"modal:open\">" . $monday[$i]["string"] . "</a></td>";
                 }
                 else $string .= "<td></td>";
                 if (array_key_exists($i, $tuesday)) {
                     $data = $tuesday[$i]["data"];
-                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $tuesday[$i]["string"] . "</a></td>";
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."' data-actors='".$data["actor_ids"]."'><a href=\"#m1\" rel=\"modal:open\">" . $tuesday[$i]["string"] . "</a></td>";
                 }
                 else $string .= "<td></td>";
                 if (array_key_exists($i, $wednesday)) {
                     $data = $wednesday[$i]["data"];
-                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $wednesday[$i]["string"] . "</a></td>";
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."' data-actors='".$data["actor_ids"]."'><a href=\"#m1\" rel=\"modal:open\">" . $wednesday[$i]["string"] . "</a></td>";
                 }
                 else $string .= "<td></td>";
                 if (array_key_exists($i, $thursday)) {
                     $data = $thursday[$i]["data"];
-                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $thursday[$i]["string"] . "</a></td>";
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."' data-actors='".$data["actor_ids"]."'><a href=\"#m1\" rel=\"modal:open\">" . $thursday[$i]["string"] . "</a></td>";
                 }
                 else $string .= "<td></td>";
                 if (array_key_exists($i, $friday)) {
                     $data = $friday[$i]["data"];
-                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."'><a href=\"#m1\" rel=\"modal:open\">" . $friday[$i]["string"] . "</a></td>";
+                    $string .= "<td id='".$i."' data-name='".$data["show_name"]."' data-start-date='".$data["start_date"]."' data-end-date='".$data["end_date"]."' data-category='".$data["show_category_name"]."' data-channel='".$channel["name"]."' data-actors='".$data["actor_ids"]."'><a href=\"#m1\" rel=\"modal:open\">" . $friday[$i]["string"] . "</a></td>";
                 }
                 else $string .= "<td></td>";
                 /*if (array_key_exists($i, $saturday)) $string .= "<td>" . $saturday[$i] . "</td>";
@@ -103,16 +103,27 @@ foreach ($this->shows as $key => $channel): ?>
 <a id="top"></a>
 <section><!--class="nature"-->
     <div class="video_div">
-        <video autoplay muted loop>
-            <source src="img/comedy_video.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
+        <?php
+        if (strpos($_SERVER["REQUEST_URI"],"comedy")) {
+            echo '<img src="'.public_url("/public/img/comedy.jpg").'"';
+        } elseif (strpos($_SERVER["REQUEST_URI"], "nature")) {
+            echo '<img src="'.public_url("/public/img/animal_planet.jpg").'"';
+        } else {
+            echo '<img src="'.public_url("/public/img/sport.jpg").'"';
+        }
+        ?>
     </div>
 </section>
-<div class="container category">Itt megtalálja a legnépszerűbb szorakoztató csatornákat, mint az RTL Klub és nagy
-    riválisa a TV2, valamint többek között a legnagyobb "humorgyárat" is, a Comedy Central-t. Ezen csatornák mindegyike
-    folyamatosan szolgáltatja a jobbnál jobb, újabb műsorokat, de megtalálhatók a klasszikus/közönségkedvencek is, mint
-    a South Park, Éjjel-Nappal Budapest vagy akár a Jóban Roszban.
+<div class="container category">
+
+    <?php
+    if (strpos($_SERVER["REQUEST_URI"],"comedy")) {
+        echo "Itt megtalálja a legnépszerűbb szorakoztató csatornákat, mint az RTL Klub és nagy riválisa a TV2, valamint többek között a legnagyobb \"humorgyárat\" is, a Comedy Central-t. Ezen csatornák mindegyike folyamatosan szolgáltatja a jobbnál jobb, újabb műsorokat, de megtalálhatók a klasszikus/közönségkedvencek is, mint a South Park, Éjjel-Nappal Budapest vagy akár a Jóban Roszban.";
+    } elseif (strpos($_SERVER["REQUEST_URI"], "nature")) {
+        echo "Ha meg akarja jobban ismerni a világot, legyen az a természet vagy a modern tudomány, akkor ezen csatornák valamelyikén biztos megtalálja, amit keres. A National Geographic otthonosan mozog a természet világában, de egyik fő profilja a történelem. A Discovery Channel-en megismerkedhet a rákhalászok, vagy akár a az aranybányászok kemény mindennapjaival.";
+    } else {
+        echo "Ha SPORT, akkor jó helyen jár! Legyen bármilyen nagy világesemény, mint az Olimpia vagy különböző sportágak kontinens viadalai, világbajnokságai, az alábbi csatornák mindent közvetítenek. De ezek mellett még megtalálja kedvenc sportjai évközi eseményeit, mindegy, hogy az valamilyen labdajáték, vagy súlyemelés. Ezen csatornákon találkozhat kedvenceivel is, mint Hosszú Katinka vagy Nagy László.";
+    }?>
 </div>
 <div class="channel_boxes">
     <div class="container">
@@ -129,8 +140,8 @@ foreach ($this->shows as $key => $channel): ?>
 <?php foreach ($this->channels as $channel): ?>
     <div id="<?php echo $channel["id"] ?>" class="container grey-bg" style="width: 60%; padding: 6px 0 0 6px;">
         <div class="box" style="width: unset">
-            <a href="#"><img src="<?php echo public_url($channel["channel_logo"]) ?>"
-                                                         alt="<?php echo $channel["channel_name"] ?>"></a>
+            <img src="<?php echo public_url($channel["channel_logo"]) ?>"
+                                                         alt="<?php echo $channel["channel_name"] ?>">
         </div>
         <div class="description">
             <h2>Csatorna neve: <span><?php echo $channel["channel_name"] ?></span></h2>
@@ -192,7 +203,7 @@ foreach ($this->shows as $key => $channel): ?>
             "<p>Műsor kezdete: "+$(this).parent().data("start-date")+"</p>" +
             "<p>Műsor vége: "+$(this).parent().data("end-date")+"</p>" +
             "<p>Kategoria: "+$(this).parent().data("category")+
-            "<p>Szereplők: </p>"
+            "<p>Szereplők: "+$(this).parent().data("actors") +"</p>"
         );
     });
 </script>
